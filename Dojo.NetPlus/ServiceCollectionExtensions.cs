@@ -1,5 +1,6 @@
 ﻿using System;
 using Dojo.NetPlus.Api;
+using Dojo.NetPlus.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Refit;
@@ -12,6 +13,8 @@ namespace Dojo.NetPlus
         public static IServiceCollection AddDojoNetPlus(this IServiceCollection services, string apiKey,
             Action<Options> configureOptions = null)
         {
+            
+            // configure options
             var options = new Options();
             configureOptions?.Invoke(options);
 
@@ -20,6 +23,7 @@ namespace Dojo.NetPlus
                 throw new ArgumentException("API key must be provided.", nameof(apiKey));
             }
             
+            // register refit client
             services.AddRefitClient<IDojoApi>()
                 .ConfigureHttpClient(c =>
                 {
@@ -33,6 +37,8 @@ namespace Dojo.NetPlus
                 })
                 .AddTransientHttpErrorPolicy(x => x.WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(options.RetryCount, retryAttempt))));
 
+            // register services
+            services.AddTransient<IPaymentIntentService, PaymentIntentService>();
 
             return services;
 
