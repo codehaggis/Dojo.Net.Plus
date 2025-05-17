@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dojo.NetPlus.Api.PaymentIntents;
+using Dojo.NetPlus.Api.Refunds;
+using Dojo.NetPlus.Api.Terminals;
 using Refit;
 
 namespace Dojo.NetPlus.Api
@@ -20,18 +22,31 @@ namespace Dojo.NetPlus.Api
         
         [Post("/payment-intents/{id}/amount")]
         Task<ApiResponse<PaymentIntent>> UpdatePaymentIntent(string id, [Body] UpdatePaymentIntent updatePaymentIntent);
-        //
-        // [Post("/terminal-sessions")]
-        // Task<ApiResponse<TerminalSessionResponse>> CreateTerminalSessionAsync([Body] TerminalSession terminalSession);
-        //
-        // [Get("/terminal-sessions/{id}")]
-        // Task<ApiResponse<TerminalSessionResponse>> GetTerminalSessionAsync(string id);
-        //
-        // [Put("/terminal-sessions/{id}/cancel")]
-        // Task<ApiResponse<TerminalSessionResponse>> CancelTerminalSessionAsync(string id);
-        //
-        // [Put("/terminal-sessions/{id}/signature")]
-        // Task<ApiResponse<TerminalSessionResponse>> AcceptSignatureTerminalSessionPaymentAsync(string id, [Body] TerminalSessionSignatureApproval signatureApproval);
+        
+        [Post("/payment-intents/{paymentIntentId}/refresh-client-session-secret")]
+        Task<ApiResponse<PaymentIntent>> RefreshClientSessionSecret(string paymentIntentId);
+        
+        [Post("/terminal-sessions")]
+        Task<ApiResponse<TerminalSession>> CreateTerminalSessionAsync([Body] CreateTerminalSession terminalSession);
+        
+        [Get("/terminal-sessions/{id}")]
+        Task<ApiResponse<TerminalSession>> GetTerminalSessionAsync(string id);
+        
+        [Put("/terminal-sessions/{id}/cancel")]
+        Task<ApiResponse<TerminalSession>> CancelTerminalSessionAsync(string id);
+        
+        [Put("/terminal-sessions/{id}/signature")]
+        Task<ApiResponse<TerminalSession>> AcceptSignatureTerminalSessionPaymentAsync(string id, [Body] AcceptSignature signatureApproval);
 
+        [Post("/payment-intents/{paymentIntentId}/refunds")]
+        Task<ApiResponse<Refund>> RefundPaymentIntent([Header("idempotencyKey")] string idempotencyKey, string paymentIntentId, [Body] CreateRefund refundRequest);
+        
+        [Get("/payment-intents/refunds/{refundId")]
+        Task<ApiResponse<Refund>> GetRefund(string refundId);
+        
+        [Post("/payment-intents/{paymentIntentId}/reversal")]
+        Task<ApiResponse<Refund>> ReversalPaymentIntent(string paymentIntentId);
+        
+        
     }
 }

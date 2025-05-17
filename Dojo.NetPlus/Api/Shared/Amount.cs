@@ -1,6 +1,7 @@
 ﻿using Dojo.NetPlus.Api.PaymentIntents.Enums;
+using Dojo.NetPlus.Api.Shared.Enums;
 
-namespace Dojo.NetPlus.Api.PaymentIntents
+namespace Dojo.NetPlus.Api.Shared
 {
     public class Amount
     {

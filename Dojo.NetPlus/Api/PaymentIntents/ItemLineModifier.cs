@@ -1,4 +1,6 @@
-﻿namespace Dojo.NetPlus.Api.PaymentIntents
+﻿using Dojo.NetPlus.Api.Shared;
+
+namespace Dojo.NetPlus.Api.PaymentIntents
 {
     public class ItemLineModifier
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Dojo.NetPlus.Api.PaymentIntents;
 
-namespace Dojo.NetPlus.Api.PaymentIntents
+namespace Dojo.NetPlus.Api.Shared
 {
     public class PaymentDetails
     {
@@ -13,6 +13,5 @@ namespace Dojo.NetPlus.Api.PaymentIntents
         public string AvsResult { get; set; }
         public Card Card { get; set; }
         
-
     }
 }

@@ -3,7 +3,7 @@ using Dojo.NetPlus.Api.Terminals.Enums;
 
 namespace Dojo.NetPlus.Api.Terminals
 {
-    public class Terminal
+    public class Terminal : IResponseType
     {
         public string Id { get; set; }
         public TerminalProperties Properties { get; set; }

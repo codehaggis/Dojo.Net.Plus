@@ -1,4 +1,4 @@
-﻿namespace Dojo.NetPlus.Api.PaymentIntents.Enums
+﻿namespace Dojo.NetPlus.Api.Shared.Enums
 {
     public enum CardFundingType
     {

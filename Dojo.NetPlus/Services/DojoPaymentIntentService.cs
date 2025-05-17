@@ -5,12 +5,12 @@ using Dojo.NetPlus.Api.PaymentIntents;
 
 namespace Dojo.NetPlus.Services
 {
-    internal sealed class PaymentIntentService : IPaymentIntentService
+    internal sealed class DojoPaymentIntentService : BaseService, IDojoPaymentIntentService
     {
         // inject the refit client
         private readonly IDojoApi _dojoApi;
 
-        public PaymentIntentService(IDojoApi dojoApi)
+        public DojoPaymentIntentService(IDojoApi dojoApi)
         {
             _dojoApi = dojoApi;
         }
@@ -22,17 +22,8 @@ namespace Dojo.NetPlus.Services
             {
                 throw new ArgumentException("Amount cannot be zero.");
             }
-
-            try
-            {
-                var apiResponse = await _dojoApi.CreatePaymentIntent(createPaymentIntent);
-                return new Response<PaymentIntent>(apiResponse);
-                
-            }
-            catch (Exception e)
-            {
-                return new Response<PaymentIntent>(e.Message);
-            } 
+            
+            return await ExecuteApiCallAsync(() => _dojoApi.CreatePaymentIntent(createPaymentIntent));
             
         }
 
@@ -43,16 +34,8 @@ namespace Dojo.NetPlus.Services
                 throw new ArgumentException("Payment intent ID cannot be null or empty.");
             }
 
-            try
-            {
-                var apiResponse = await _dojoApi.GetPaymentIntent(paymentIntentId);
-                return new Response<PaymentIntent>(apiResponse);
-                
-            }
-            catch (Exception e)
-            {
-                return new Response<PaymentIntent>(e.Message);
-            }
+            return await ExecuteApiCallAsync(() => _dojoApi.GetPaymentIntent(paymentIntentId));
+           
         }
 
         public async Task<Response<PaymentIntent>> DeletePaymentIntentAsync(string paymentIntentId)
@@ -61,17 +44,9 @@ namespace Dojo.NetPlus.Services
             {
                 throw new ArgumentException("Payment intent ID cannot be null or empty.");
             }
-
-            try
-            {
-                var apiResponse = await _dojoApi.CancelPaymentIntent(paymentIntentId);
-                return new Response<PaymentIntent>(apiResponse);
-                
-            }
-            catch (Exception e)
-            {
-                return new Response<PaymentIntent>(e.Message);
-            }
+            
+            return await ExecuteApiCallAsync(() => _dojoApi.CancelPaymentIntent(paymentIntentId));
+            
         }
 
         public async Task<Response<CaptureResponse>> CapturePaymentIntentAsync(string paymentIntentId, CaptureRequest captureRequest)
@@ -86,16 +61,9 @@ namespace Dojo.NetPlus.Services
                 throw new ArgumentNullException(nameof(captureRequest));
             }
 
-            try
-            {
-                var apiResponse = await _dojoApi.CapturePaymentIntent(paymentIntentId, captureRequest);
-                return new Response<CaptureResponse>(apiResponse);
+
+            return await ExecuteApiCallAsync(() => _dojoApi.CapturePaymentIntent(paymentIntentId, captureRequest));
                 
-            }
-            catch (Exception e)
-            {
-                return new Response<CaptureResponse>(e.Message);
-            }
         }
 
         public async Task<Response<PaymentIntent>> UpdatePaymentIntentAsync(string paymentIntentId, UpdatePaymentIntent updatePaymentIntent)
@@ -115,17 +83,14 @@ namespace Dojo.NetPlus.Services
             {
                 throw new ArgumentException("Amount cannot be zero or negative.");
             }
+            
+            return await ExecuteApiCallAsync(() => _dojoApi.UpdatePaymentIntent(paymentIntentId, updatePaymentIntent));
+            
+        }
 
-            try
-            {
-                var apiResponse = await _dojoApi.UpdatePaymentIntent(paymentIntentId, updatePaymentIntent);
-                return new Response<PaymentIntent>(apiResponse);
-                
-            }
-            catch (Exception e)
-            {
-                return new Response<PaymentIntent>(e.Message);
-            }
+        public async Task<Response<PaymentIntent>> RefreshClientSessionSecretAsync(string paymentIntentId)
+        {
+            return await ExecuteApiCallAsync(() => _dojoApi.RefreshClientSessionSecret(paymentIntentId));
         }
     }
 }

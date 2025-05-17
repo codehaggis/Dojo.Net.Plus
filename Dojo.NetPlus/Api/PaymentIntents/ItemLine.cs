@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Dojo.NetPlus.Api.Shared;
 
 namespace Dojo.NetPlus.Api.PaymentIntents
 {

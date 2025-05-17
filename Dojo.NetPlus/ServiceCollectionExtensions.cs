@@ -38,7 +38,9 @@ namespace Dojo.NetPlus
                 .AddTransientHttpErrorPolicy(x => x.WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(options.RetryCount, retryAttempt))));
 
             // register services
-            services.AddTransient<IPaymentIntentService, PaymentIntentService>();
+            services.AddTransient<IDojoPaymentIntentService, DojoPaymentIntentService>();
+            services.AddTransient<IDojoTerminalService, DojoTerminalService>();
+            services.AddTransient<IDojoRefundService, DojoRefundService>();
 
             return services;
 
