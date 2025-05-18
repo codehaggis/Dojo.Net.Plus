@@ -8,6 +8,6 @@ namespace Dojo.NetPlus.Services
         Task<Response<TerminalSession>> CreateTerminalSessionAsync(CreateTerminalSession createTerminalSession);
         Task<Response<TerminalSession>> GetTerminalSessionAsync(string terminalSessionId);
         Task<Response<TerminalSession>> CancelTerminalSessionAsync(string terminalSessionId);
-        Task<Response<TerminalSession>> AcceptSignatureTerminalSessionPaymentAsync(string terminalSessionId, AcceptSignature signatureApproval);
+        Task<Response<TerminalSession>> AcceptSignatureTerminalSessionPaymentAsync(string terminalSession);
     }
 }

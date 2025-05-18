@@ -65,6 +65,22 @@ namespace Dojo.NetPlus.Services
             return await ExecuteApiCallAsync(() => _dojoApi.CapturePaymentIntent(paymentIntentId, captureRequest));
                 
         }
+        
+        public async Task<Response<CaptureResponse>> CapturePaymentIntentAsync(string paymentIntentId, int amount)
+        {
+            if (string.IsNullOrWhiteSpace(paymentIntentId))
+            {
+                throw new ArgumentException("Payment intent ID cannot be null or empty.");
+            }
+
+            var captureRequest = new CaptureRequest
+            {
+                Amount = amount
+            };
+
+            return await ExecuteApiCallAsync(() => _dojoApi.CapturePaymentIntent(paymentIntentId, captureRequest));
+                
+        }
 
         public async Task<Response<PaymentIntent>> UpdatePaymentIntentAsync(string paymentIntentId, UpdatePaymentIntent updatePaymentIntent)
         {

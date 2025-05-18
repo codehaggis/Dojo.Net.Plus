@@ -32,9 +32,13 @@ namespace Dojo.NetPlus.Services
             return await ExecuteApiCallAsync(() => _dojoApi.CancelTerminalSessionAsync(terminalSessionId));
         }
 
-        public async Task<Response<TerminalSession>> AcceptSignatureTerminalSessionPaymentAsync(string terminalSessionId, 
-            AcceptSignature signatureApproval)
+        public async Task<Response<TerminalSession>> AcceptSignatureTerminalSessionPaymentAsync(string terminalSessionId)
         {
+            var signatureApproval = new AcceptSignature
+            {
+                Accepted = true
+            };
+            
             return await ExecuteApiCallAsync(() => 
                 _dojoApi.AcceptSignatureTerminalSessionPaymentAsync(terminalSessionId, signatureApproval));
         }
