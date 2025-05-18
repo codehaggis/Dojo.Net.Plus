@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Dojo.NetPlus.Api;
 using Dojo.NetPlus.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +26,14 @@ namespace Dojo.NetPlus
             }
             
             // register refit client
+            // services.AddRefitClient<IDojoApi>(new RefitSettings
+            //     {
+            //         ContentSerializer = new SystemTextJsonContentSerializer(new JsonSerializerOptions
+            //         {
+            //             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            //             Converters = { new JsonStringEnumConverter() }
+            //         })
+            //     })
             services.AddRefitClient<IDojoApi>()
                 .ConfigureHttpClient(c =>
                 {
@@ -35,7 +45,7 @@ namespace Dojo.NetPlus
                     if (options.SoftwareHouseId != null) c.DefaultRequestHeaders.Add("software-house-id", options.SoftwareHouseId);
                     
                 })
-                .AddTransientHttpErrorPolicy(x => x.WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(options.RetryCount, retryAttempt))));
+                .AddTransientHttpErrorPolicy(x => x.WaitAndRetryAsync(1, retryAttempt => TimeSpan.FromSeconds(Math.Pow(options.RetryCount, retryAttempt))));
 
             // register services
             services.AddTransient<IDojoPaymentIntentService, DojoPaymentIntentService>();

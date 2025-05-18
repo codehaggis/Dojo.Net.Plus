@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Dojo.NetPlus.Api;
 using Dojo.NetPlus.Api.Terminals;
 
@@ -17,7 +19,8 @@ namespace Dojo.NetPlus.Services
         
         public async Task<Response<TerminalSession>> CreateTerminalSessionAsync(CreateTerminalSession createTerminalSession)
         {
-            
+            var json = System.Text.Json.JsonSerializer.Serialize(createTerminalSession, new JsonSerializerOptions { WriteIndented = true });
+            Console.WriteLine(json);
             return await ExecuteApiCallAsync(() => _dojoApi.CreateTerminalSessionAsync(createTerminalSession));
             
         }

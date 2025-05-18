@@ -8,7 +8,6 @@ namespace Dojo.NetPlus.Api.Terminals
     {
         public string TerminalId { get; set; }
         public TerminalSessionDetails SessionDetails { get; set; }
-        public SessionType SessionType { get; set; } 
 
 
         /// <summary>
@@ -23,10 +22,10 @@ namespace Dojo.NetPlus.Api.Terminals
             {
                 Sale = new Sale
                 {
-                    PaymentIntentId = paymentIntentId
-                }
+                    PaymentIntentId = paymentIntentId,
+                },
+                SessionType = SessionType.Sale
             };
-            SessionType = SessionType.Sale;
         }
 
         /// <summary>
@@ -47,9 +46,10 @@ namespace Dojo.NetPlus.Api.Terminals
                         Value = matchedRefundAmount,
                         CurrencyCode = currency
                     }
-                }
+                },
+                SessionType = SessionType.MatchedRefund
             };
-            SessionType = SessionType.MatchedRefund;
+            
         }
         
         /// <summary>
@@ -68,9 +68,10 @@ namespace Dojo.NetPlus.Api.Terminals
                         Value = unlinkedRefundAmount,
                         CurrencyCode = currency
                     }
-                }
+                },
+                SessionType = SessionType.UnlinkedRefund
             };
-            SessionType = SessionType.UnlinkedRefund;
+            
         }
         
     }
