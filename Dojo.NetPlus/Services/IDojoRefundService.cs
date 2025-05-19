@@ -8,6 +8,6 @@ namespace Dojo.NetPlus.Services
     {
         Task<Response<Refund>> CreateRefundAsync(string paymentIntentId, Guid idempotencyKey, CreateRefund createRefund);
         Task<Response<Refund>> GetRefundAsync(string refundId);
-        Task<Response<Refund>> ReversePaymentIntentAsync(string paymentIntentId);
+        Task<Response<Reversal>> ReversePaymentIntentAsync(string paymentIntentId);
     }
 }

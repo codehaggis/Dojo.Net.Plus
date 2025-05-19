@@ -7,7 +7,7 @@ namespace Dojo.NetPlus.Api.Terminals
     public class CreateTerminalSession
     {
         public string TerminalId { get; set; }
-        public TerminalSessionDetails SessionDetails { get; set; }
+        public TerminalSessionDetails Details { get; set; }
 
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace Dojo.NetPlus.Api.Terminals
             
             // Sale
             TerminalId = terminalId;
-            SessionDetails = new TerminalSessionDetails
+            Details = new TerminalSessionDetails
             {
                 Sale = new Sale
                 {
@@ -36,7 +36,7 @@ namespace Dojo.NetPlus.Api.Terminals
         {
             // matched refund
             TerminalId = terminalId;
-            SessionDetails = new TerminalSessionDetails
+            Details = new TerminalSessionDetails
             {
                 MatchedRefund = new MatchedRefund
                 {
@@ -59,7 +59,7 @@ namespace Dojo.NetPlus.Api.Terminals
         {
             // Unlinked refund
             TerminalId = terminalId;
-            SessionDetails = new TerminalSessionDetails
+            Details = new TerminalSessionDetails
             {
                 UnlinkedRefund = new UnlinkedRefund
                 {

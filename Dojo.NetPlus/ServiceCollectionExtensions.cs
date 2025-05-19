@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using Dojo.NetPlus.Api;
 using Dojo.NetPlus.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Polly;
 using Refit;
 
@@ -24,17 +25,33 @@ namespace Dojo.NetPlus
             {
                 throw new ArgumentException("API key must be provided.", nameof(apiKey));
             }
+
+            if (options.OutputResponseBodyToConsole)
+            {
+                services.AddLogging(builder =>
+                {
+                    builder.AddConsole(); // Enable console logging
+                    builder.SetMinimumLevel(LogLevel.Information);  // Set minimum log level
+                    services.AddTransient<LoggingHandler>();
+                });
+            }
+            
+            
             
             // register refit client
-            // services.AddRefitClient<IDojoApi>(new RefitSettings
-            //     {
-            //         ContentSerializer = new SystemTextJsonContentSerializer(new JsonSerializerOptions
-            //         {
-            //             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            //             Converters = { new JsonStringEnumConverter() }
-            //         })
-            //     })
-            services.AddRefitClient<IDojoApi>()
+            var refitBuilder = services.AddRefitClient<IDojoApi>(new RefitSettings
+                {
+                    ContentSerializer = new SystemTextJsonContentSerializer(new JsonSerializerOptions
+                    {
+                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                        Converters = { new JsonStringEnumConverter() },
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                        WriteIndented = true,
+                        NumberHandling = JsonNumberHandling.AllowReadingFromString,
+                        PropertyNameCaseInsensitive = true,
+                        UnmappedMemberHandling = JsonUnmappedMemberHandling.Skip
+                    })
+                })
                 .ConfigureHttpClient(c =>
                 {
                     c.BaseAddress = new Uri(options.BaseUrl);
@@ -47,6 +64,11 @@ namespace Dojo.NetPlus
                 })
                 .AddTransientHttpErrorPolicy(x => x.WaitAndRetryAsync(1, retryAttempt => TimeSpan.FromSeconds(Math.Pow(options.RetryCount, retryAttempt))));
 
+            if (options.OutputResponseBodyToConsole)
+            {
+                refitBuilder.AddHttpMessageHandler<LoggingHandler>();
+            }
+            
             // register services
             services.AddTransient<IDojoPaymentIntentService, DojoPaymentIntentService>();
             services.AddTransient<IDojoTerminalService, DojoTerminalService>();

@@ -25,9 +25,6 @@ namespace Dojo.NetPlus.Services
                 throw new ArgumentException("Amount cannot be zero.");
             }
             
-            
-            var json = System.Text.Json.JsonSerializer.Serialize(createPaymentIntent, new JsonSerializerOptions { WriteIndented = true, DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull, Converters = { new JsonStringEnumConverter() } });
-            Console.WriteLine(json);
             return await ExecuteApiCallAsync(() => _dojoApi.CreatePaymentIntent(createPaymentIntent));
             
         }

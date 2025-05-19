@@ -11,29 +11,12 @@ namespace Dojo.NetPlus
         public DojoApiError DojoError { get; set; }
         public string Message { get; set; }
 
-        public Response()
-        {
-            
-        }
-
         public Response(ApiResponse<T> apiResponse)
         {
             Success = apiResponse.IsSuccessStatusCode;
             StatusCode = (int)apiResponse.StatusCode;
             Data = apiResponse.Content;
             DojoError = apiResponse.Error.GetApiError();
-        }
-
-        public Response(ApiException apiException)
-        {
-            Success = false;
-            StatusCode = (int)apiException.StatusCode;
-            Data = default;
-            DojoError = new DojoApiError
-            {
-                Detail = apiException.Message
-            };
-            Message = apiException.Message;
         }
 
         public Response(string errorMessage)

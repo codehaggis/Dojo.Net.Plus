@@ -28,7 +28,7 @@ namespace Dojo.NetPlus.Services
             return await ExecuteApiCallAsync(() => _dojoApi.GetRefund(refundId));
         }
 
-        public async Task<Response<Refund>> ReversePaymentIntentAsync(string paymentIntentId)
+        public async Task<Response<Reversal>> ReversePaymentIntentAsync(string paymentIntentId)
         {
             return await ExecuteApiCallAsync(() => _dojoApi.ReversalPaymentIntent(paymentIntentId));
         }

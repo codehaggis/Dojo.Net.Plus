@@ -45,7 +45,7 @@ namespace Dojo.NetPlus.Api
         Task<ApiResponse<Refund>> GetRefund(string refundId);
         
         [Post("/payment-intents/{paymentIntentId}/reversal")]
-        Task<ApiResponse<Refund>> ReversalPaymentIntent(string paymentIntentId);
+        Task<ApiResponse<Reversal>> ReversalPaymentIntent(string paymentIntentId);
         
         
     }

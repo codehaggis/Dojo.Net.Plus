@@ -14,10 +14,6 @@ namespace Dojo.NetPlus.Services
                 var result = await apiCall();
                 return new Response<T>(result);
             }
-            catch (ApiException apiException)
-            {
-                return new Response<T>(apiException);
-            }
             catch (Exception e)
             {
                 return new Response<T>(e.Message);

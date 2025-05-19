@@ -1,5 +1,6 @@
 ﻿using Dojo.NetPlus.Api;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Refit;
 
 namespace Dojo.NetPlus
@@ -15,7 +16,19 @@ namespace Dojo.NetPlus
                 if (!string.IsNullOrEmpty(apiException.Content))
                 {
                     // try to deserialize the error
-                    var error = JsonSerializer.Deserialize<DojoApiError>(apiException.Content);
+
+                    var options = new JsonSerializerOptions
+                    {
+                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                        Converters = { new JsonStringEnumConverter() },
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                        WriteIndented = true,
+                        NumberHandling = JsonNumberHandling.AllowReadingFromString,
+                        PropertyNameCaseInsensitive = true,
+                        UnmappedMemberHandling = JsonUnmappedMemberHandling.Skip
+                    };
+                    
+                    var error = JsonSerializer.Deserialize<DojoApiError>(apiException.Content, options);
                     if (error != null)
                     {
                         return error;
