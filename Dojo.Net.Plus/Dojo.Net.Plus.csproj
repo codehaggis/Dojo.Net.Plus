@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+
+        <!-- NuGet metadata -->
+        <PackageId>Dojo.Net.Plus</PackageId>
+        <Version>1.0.1</Version>
+        <Authors>codehaggis</Authors>
+        <Description>Unofficial client library for the Dojo API. The official Dojo C# SDK is feature incomplete and has poor documentation. This package attempts to simplify the process of interacting with the Dojo API.</Description>
+        <PackageTags>dojo</PackageTags>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/codehaggis/Dojo.Net.Plus</RepositoryUrl>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<AssemblyVersion>1.0.1</AssemblyVersion>
+	<FileVersion>1.0.1</FileVersion>
+    </PropertyGroup>
+
+  <Target Name="CopyReadmeEarlier" BeforeTargets="BeforeBuild">
+    <Copy SourceFiles="..\README.md"
+          DestinationFiles="README.md"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="9.0.5" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.5" />
+      <PackageReference Include="Polly" Version="8.5.2" />
+      <PackageReference Include="Refit" Version="8.0.0" />
+      <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
+    </ItemGroup>
+
+</Project>
