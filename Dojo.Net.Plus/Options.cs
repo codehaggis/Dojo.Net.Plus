@@ -28,7 +28,7 @@ namespace Dojo.Net.Plus
         /// </summary>
         public int RetryCount { get; set; } = 3; // default
         
-        public CurrencyCode DefaultCurrencyCode { get; set; } = CurrencyCode.EUR; // default
+        public CurrencyCode DefaultCurrencyCode { get; set; } = CurrencyCode.GBP; // default
         
         /// <summary>
         /// Outputs the response body when debugging
