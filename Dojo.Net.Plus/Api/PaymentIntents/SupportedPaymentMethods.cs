@@ -1,10 +1,11 @@
-﻿using Dojo.Net.Plus.Api.PaymentIntents.Enums;
+﻿using System.Collections.Generic;
+using Dojo.Net.Plus.Api.PaymentIntents.Enums;
 
 namespace Dojo.Net.Plus.Api.PaymentIntents
 {
     public class SupportedPaymentMethods
     {
-        public CardSchemes CardSchemes { get; set; }
-        public Wallets Wallets { get; set; }
+        public List<CardSchemes> CardSchemes { get; set; }
+        public List<Wallets> Wallets { get; set; }
     }
 }

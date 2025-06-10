@@ -6,7 +6,7 @@
         MASTERCARD = 1,
         MAESTRO = 2,
         DISCOVER = 3,
-        DCIS = 4,
+        DCI = 4,
         AMEX = 5
     }
 }
