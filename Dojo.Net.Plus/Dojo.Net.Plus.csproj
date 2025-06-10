@@ -10,7 +10,7 @@
 
         <!-- NuGet metadata -->
         <PackageId>Dojo.Net.Plus</PackageId>
-        <Version>1.0.2</Version>
+        <Version>1.0.3</Version>
         <Authors>codehaggis</Authors>
         <Description>Unofficial client library for the Dojo API. The official Dojo C# SDK is feature incomplete and has poor documentation. This package attempts to simplify the process of interacting with the Dojo API.</Description>
         <PackageTags>dojo</PackageTags>
@@ -20,8 +20,8 @@
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <AssemblyVersion>1.0.2</AssemblyVersion>
-        <FileVersion>1.0.2</FileVersion>
+        <AssemblyVersion>1.0.3</AssemblyVersion>
+        <FileVersion>1.0.3</FileVersion>
     </PropertyGroup>
 
 
